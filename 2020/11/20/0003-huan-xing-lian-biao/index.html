@@ -473,19 +473,16 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>##　题目描述</p>
-<pre><code>给定一个链表，判断链表中是否有环。
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><pre><code>给定一个链表，判断链表中是否有环。
 
 如果链表中存在环，则返回 true 。 否则，返回 false 。
 
 进阶：你能用 O(1)空间复杂度解决此问题吗？</code></pre>
-<p>###　算法思路：快慢指针</p>
-<pre><code>设置快慢指针，快指针每次走两步，满指针每次走一步。如果有环，两者必定会在某个点相遇; 否则快指针会先走到null处
+<h3 id="算法思路：快慢指针"><a href="#算法思路：快慢指针" class="headerlink" title="算法思路：快慢指针"></a>算法思路：快慢指针</h3><pre><code>设置快慢指针，快指针每次走两步，满指针每次走一步。如果有环，两者必定会在某个点相遇; 否则快指针会先走到null处
 
 时间复杂度：O(N)
 空间复杂度：O(1)</code></pre>
-<p>###　代码实现</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span>
         <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
