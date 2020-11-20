@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="进程调度, Hexo">
+    <meta name="keywords" content="删除链表倒数第K个节点, Hexo">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>进程调度 | Hexo</title>
+    <title>删除链表倒数第K个节点 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">进程调度</h1>
+                    <h1 class="description center-align post-title">删除链表倒数第K个节点</h1>
                 </div>
             </div>
         </div>
@@ -432,12 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">操作系统</span>
-                            </a>
-                        
-                            <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">
-                                <span class="chip bg-color">进程管理</span>
+                            <a href="/tags/%E9%93%BE%E8%A1%A8/">
+                                <span class="chip bg-color">链表</span>
                             </a>
                         
                     </div>
@@ -448,8 +444,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                操作系统
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
+                                数据结构与算法
                             </a>
                         
                     </div>
@@ -477,60 +473,39 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="CPU调度的时机"><a href="#CPU调度的时机" class="headerlink" title="CPU调度的时机"></a>CPU调度的时机</h2><p><strong>触发调度的情况</strong>：</p>
-<ul>
-<li><em>从就绪态 -&gt; 运行态</em>：当进程被创建时，会进入到就绪队列，操作系统会从就绪队列选择一个进程运行；</li>
-<li><em>从运行态 -&gt; 阻塞态</em>：当进程发生 I/O 事件而阻塞时，操作系统必须另外一个进程运行；</li>
-<li><em>从运行态 -&gt; 结束态</em>：当进程退出结束后，操作系统得从就绪队列选择另外一个进程运行；</li>
-</ul>
-<p><strong>不能进行调度和切换的情况</strong>：</p>
-<ul>
-<li>在处理中断的过程中</li>
-<li>进程在操作系统内核程序的临界区</li>
-<li>在执行原子操作过程中</li>
-</ul>
-<h2 id="CPU调度的方式"><a href="#CPU调度的方式" class="headerlink" title="CPU调度的方式"></a>CPU调度的方式</h2><ul>
-<li><p>非剥夺式调度：当某个进程正在执行的时候，即使就绪队列出现了一个更加重要和紧急的进程，仍然让当前进程继续执行直到结束或进入阻塞状态。</p>
-</li>
-<li><p>剥夺式调度：当某个进程正在执行的时候，即使就绪队列出现了一个更加重要和紧急的进程，会立即暂停正在执行的进程，转而执行优先级更高的进程</p>
-</li>
-</ul>
-<h2 id="CPU调度的原则"><a href="#CPU调度的原则" class="headerlink" title="CPU调度的原则"></a>CPU调度的原则</h2><ul>
-<li><strong>CPU 利用率</strong>：调度程序应确保 CPU 是始终匆忙的状态，这可提高 CPU 的利用率；</li>
-<li><strong>系统吞吐量</strong>：吞吐量表示的是单位时间内 CPU 完成进程的数量，长作业的进程会占用较长的 CPU 资源，因此会降低吞吐量，相反，短作业的进程会提升系统吞吐量；</li>
-<li><strong>周转时间</strong>：周转时间是进程运行和阻塞时间总和，一个进程的周转时间越小越好；</li>
-<li><strong>等待时间</strong>：这个等待时间不是阻塞状态的时间，而是进程处于就绪队列的时间，等待的时间越长，用户越不满意；</li>
-<li><strong>响应时间</strong>：用户提交请求到系统第一次产生响应所花费的时间，在交互式系统中，响应时间是衡量调度算法好坏的主要标准</li>
-</ul>
-<h2 id="CPU调度算法"><a href="#CPU调度算法" class="headerlink" title="CPU调度算法"></a>CPU调度算法</h2><h3 id="先来先服务"><a href="#先来先服务" class="headerlink" title="先来先服务"></a>先来先服务</h3><pre><code>基本思想：
-    FCFS每次从就绪队列中选择最先进入队列的进程，然后一直进行，直到该进程退出或阻塞，才会继续从队列中选择第一个进程接着运行
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><pre><code>给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 
-缺点：当一个长作业先运行了，后面的段作业等待时间会很长。因此适用于CPU繁忙型作业的系统，而不是用于I/O繁忙型作业的系统</code></pre>
-<h3 id="短作业优先"><a href="#短作业优先" class="headerlink" title="短作业优先"></a>短作业优先</h3><pre><code>基本思想：
-    优先选择运行时间最短的进程来运行，这有助于提高系统的吞吐量。
+示例：
+给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</code></pre>
+<h3 id="算法思路：双指针"><a href="#算法思路：双指针" class="headerlink" title="算法思路：双指针"></a>算法思路：双指针</h3><pre><code>(1) 设置虚拟头结点，快慢指针初始化为虚拟头结点
+(2) 快指针先走n步，然后和慢指针一起走，直到快指针走到最后一个节点处
+(3) 此时慢指针指向倒数第n-1个节点，然后删掉倒数第n个节点即可
 
-缺点：一个长作业可能永远得不到CPU资源而无法运行</code></pre>
-<h3 id="高响应比优先调度算法"><a href="#高响应比优先调度算法" class="headerlink" title="高响应比优先调度算法"></a>高响应比优先调度算法</h3><pre><code>基本思想：
-    每次进行调度的时候，先计算响应比优先级，然后选择响应比优先级最高的运行。
-    响应比优先级　= (等待时间 + 要求服务时间) / 要求服务时间 = 1 + 等待时间 / 要求服务时间
-    一个作业随着等待时间的增加，响应比优先级也会变大，这一点兼顾到了长作业;　要求服务时间越短的作业越先被执行，这一点兼顾到了短作业</code></pre>
-<h3 id="时间片轮转调度算法"><a href="#时间片轮转调度算法" class="headerlink" title="时间片轮转调度算法"></a>时间片轮转调度算法</h3><pre><code>基本思想：
-    最公平的算法，为每个进程分配相同的时间片，时间片用完则释放CPU,调度另外一个进程。因此最关键的点在于设置时间片。如果设置太大，对短作业不太友好，设置太小，频繁切换进程，降低了CPU的效率</code></pre>
-<h3 id="最高优先级调度算法"><a href="#最高优先级调度算法" class="headerlink" title="最高优先级调度算法"></a>最高优先级调度算法</h3><pre><code>基本思想：
-    从就绪队列中选择最高优先级的进程进行运行。
+时间复杂度:O(N)
+空间复杂度:O(1)</code></pre>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> ListNode <span class="token function">removeNthFromEnd</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
 
-剥夺式和非剥夺式优先级调度算法：
-    当一个进程在运行的时候，出现了一个优先级更高的任务，是否暂停正在执行的进程转而调度优先级更高的任务。如果是则为剥夺式，否则为非剥夺时。
+    ListNode fast <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
+    ListNode slow <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
 
-优先级的设定：
-    静态优先级：创建进程的时候就已经设定好了优先级
-    动态优先级：根据进程的动态变化调整优先级</code></pre>
-<h3 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h3><pre><code>基本思想：
-    1、设置了多个队列，赋予每个队列不同的优先级，每个队列优先级从高到低，同时优先级越高时间片越短；
-    2、新的进程会被放入到第一级队列的末尾，按先来先服务的原则排队等待被调度，如果在第一级队列规定的时间片没运行完成，则将其转入到第二级队列的末尾，以此类推，直至完成；
-    3、当较高优先级的队列为空，才调度较低优先级的队列中的进程运行。如果进程运行时，有新进程进入较高优先级的队列，则停止当前运行的进程并将其移入到原队列末尾，接着让较高优先级的进程运行；
+    <span class="token comment" spellcheck="true">//　快指针先走n步</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>n<span class="token operator">--</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-可以发现，对于短作业可能可以在第一级队列很快被处理完。对于长作业，如果在第一级队列处理不完，可以移入下次队列等待被执行，虽然等待的时间变长了，但是运行时间也会更长了，所以该算法很好的兼顾了长短作业，同时有较好的响应时间</code></pre>
+    <span class="token comment" spellcheck="true">//　快慢指针一起走直到快指针走到最后一个节点</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//　删除倒数第n个节点</span>
+    slow<span class="token punctuation">.</span>next <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 
             </div>
             <hr/>
@@ -556,7 +531,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jjjj4.github.io/2020/11/20/du-shu-bi-ji/cao-zuo-xi-tong-zhi-jin-cheng-diao-du/">https://jjjj4.github.io/2020/11/20/du-shu-bi-ji/cao-zuo-xi-tong-zhi-jin-cheng-diao-du/</a>
+                    <a href="https://jjjj4.github.io/2020/11/20/0010-shan-chu-lian-biao-de-dao-shu-di-k-ge-jie-dian/">https://jjjj4.github.io/2020/11/20/0010-shan-chu-lian-biao-de-dao-shu-di-k-ge-jie-dian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -594,12 +569,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">操作系统</span>
-                                </a>
-                            
-                                <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">
-                                    <span class="chip bg-color">进程管理</span>
+                                <a href="/tags/%E9%93%BE%E8%A1%A8/">
+                                    <span class="chip bg-color">链表</span>
                                 </a>
                             
                         </div>
@@ -643,50 +614,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/11/20/du-shu-bi-ji/cao-zuo-xi-tong-zhi-jin-cheng-tong-bu/">
+                <a href="/2020/11/20/0010-shan-chu-lian-biao-de-dao-shu-di-k-ge-jie-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="进程同步">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="删除链表倒数第K个节点">
                         
-                        <span class="card-title">进程同步</span>
+                        <span class="card-title">删除链表倒数第K个节点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            进程管理
+                            LeetCode_19
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                    操作系统
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
+                                    数据结构与算法
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">
-                        <span class="chip bg-color">进程管理</span>
+                    <a href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>
@@ -700,19 +669,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/20/du-shu-bi-ji/cao-zuo-xi-tong-zhi-jin-cheng-yu-xian-cheng/">
+                <a href="/2020/11/20/0009k-ge-yi-zu-fan-zhuan-lian-biao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="K个一组翻转链表">
                         
-                        <span class="card-title">进程与线程</span>
+                        <span class="card-title">K个一组翻转链表</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            进程管理
+                            LeetCode_25
                         
                     </div>
                     <div class="publish-info">
@@ -723,8 +692,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                    操作系统
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
+                                    数据结构与算法
                                 </a>
                             
                             
@@ -734,12 +703,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                        <span class="chip bg-color">操作系统</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">
-                        <span class="chip bg-color">进程管理</span>
+                    <a href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>
