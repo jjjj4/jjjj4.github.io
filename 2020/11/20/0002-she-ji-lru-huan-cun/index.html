@@ -497,8 +497,7 @@ void put(int key, int value):　先在哈希表中查找该key是否存在，存
 
 时间复杂度：O(1)
 空间复杂度：O(N)</code></pre>
-<p>###　代码实现</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LRUCache</span> <span class="token punctuation">{</span>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LRUCache</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">//　定义缓存节点</span>
     <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> key<span class="token punctuation">,</span> value<span class="token punctuation">;</span>
