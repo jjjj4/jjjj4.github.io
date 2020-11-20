@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="进程管理, Hexo">
+    <meta name="keywords" content="进程与线程, Hexo">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>进程管理 | Hexo</title>
+    <title>进程与线程 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">进程管理</h1>
+                    <h1 class="description center-align post-title">进程与线程</h1>
                 </div>
             </div>
         </div>
@@ -491,7 +491,59 @@
 挂起状态分为两种：
     (1)阻塞挂起：进程在磁盘并等待某个事件发送
     (2)就绪挂起：进程在磁盘，但只要调入到内存就会进入就绪队列            </code></pre>
+<h3 id="进程的控制"><a href="#进程的控制" class="headerlink" title="进程的控制"></a>进程的控制</h3><p><strong>进程控制包括：进程创建、进程终止、进程阻塞、进程唤醒、进程切换；进程控制的程序段成为原语，在执行期间不允许中断，是不可分割的基本单位。</strong></p>
+<h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><p>允许一个进程创建另外一个进程，而且子进程继承父进程所拥有的资源，当子进程被终止时，其资源会归还给父进程。同时，终止父进程也会终止其子进程。</p>
+<p>有多种行为会导致进程的创建：</p>
+<ul>
+<li>系统初始化</li>
+<li>程序进行系统调用，比如fork()</li>
+<li>用户请求等</li>
+</ul>
+<p>创建进程的过程如下：</p>
+<ul>
+<li>为新进程为配一个唯一的PID，并申请一块空白的PCB，PCB是有限的，若申请失败则创建失败</li>
+<li>为进程分配资源，为新进程的程序和数据及用户栈分配内存空间，若空间不足则会进入’阻塞态’</li>
+<li>初始化PCB</li>
+<li>若进程就绪队列可以接纳新进程则会插入到就绪队列，等待被调度运行</li>
+</ul>
+<h4 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h4><p><strong>引起进程终止的因素：正常结束、异常结束、外界干预(kill掉)</strong></p>
+<p>终止进程的过程如下：</p>
+<ul>
+<li>根据PID检索PCB，从中读取该进程的状态</li>
+<li>如果处于执行状态则立即终止该进程的执行，并将CPU资源分配给其他进程</li>
+<li>若该进程还有子进程，则将其所有子进程终止</li>
+<li>将该进程的所有资源归还给父进程或者操作系统</li>
+<li>将该PCB从链表中移除</li>
+</ul>
+<h4 id="进程阻塞"><a href="#进程阻塞" class="headerlink" title="进程阻塞"></a>进程阻塞</h4><p><strong>进程由于期待的事情没有发生，比如：请求系统资源失败、等待某种操作的完成、新数据尚未到达等，使自己由运行态变为阻塞态；进程阻塞是一种主动的行为</strong></p>
+<p>阻塞进程的过程如下：</p>
+<ul>
+<li>找到要被阻塞的进程的PID对应的PCB</li>
+<li>若该进程为运行态，则保护其现场，将其状态转为阻塞态，停止运行</li>
+<li>把该PCB插入到相应时间的等待队列中</li>
+</ul>
+<h4 id="进程唤醒"><a href="#进程唤醒" class="headerlink" title="进程唤醒"></a>进程唤醒</h4><p><strong>处于阻塞态的进程必须由其他进程唤醒，才能从阻塞态转变为就绪态</strong></p>
+<p>唤醒进程的过程如下：</p>
+<ul>
+<li>在该时间的等待队列中找到相应进程的PCB</li>
+<li>将其从等待队列中移除并置为就绪态</li>
+<li>把该PCB插入到就绪队列，等待CPU调度</li>
+</ul>
+<h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><p><strong>各个进程之间是共享 CPU 资源的，在不同的时候进程之间需要切换，让不同的进程可以在 CPU 执行，那么从一个进程切换到另一个进程运行，称为进程的上下文切换</strong></p>
+<pre><code>1、CPU的上下文以及切换
+    [任务]是交给CPU运行的，那么每个任务在运行前，CPU必须知道 任务从哪里加载 和 任务从哪里执行, 所以，操作系统需要预先设置 CPU寄存器 和 程序计数器。所以CPU寄存器和程序计数器是CPU所依赖的环境，也就是CPU上下文。
+    CPU 上下文切换就是先把前一个任务的 CPU 上下文（CPU 寄存器和程序计数器）保存起来，然后加载新任务的上下文到这些寄存器和程序计数器，最后再跳转到程序计数器所指的新位置，运行新任务。
+    [任务]包括了进程、线程和中断。所以CPU上下文切换分成：进程上下文切换、线程上下文切换和中断上下文切换。
 
+
+2、进程的上下文以及切换
+    进程是由内核管理和调度的，所以进程的切换只能发生在内核态。所以，进程的上下文切换不仅包含了虚拟内存、栈、全局变量等用户空间的资源，还包括了内核堆栈、寄存器等内核空间的资源。
+    进程切换的过程如下：
+        (1)保存CPU上下文
+        (2)更新PCB信息，即保存进程的上下文信息
+        (3)把进程的PCB移入到相应的队列
+        (4)选择另外一个进程执行，并更新其PCB信息,即加载其上下文信息</code></pre>
+<h3 id="进程的组织"><a href="#进程的组织" class="headerlink" title="进程的组织"></a>进程的组织</h3><h4 id="进程控制块PCB"><a href="#进程控制块PCB" class="headerlink" title="进程控制块PCB"></a>进程控制块PCB</h4><h4 id="程序段"><a href="#程序段" class="headerlink" title="程序段"></a>程序段</h4><h4 id="数据段"><a href="#数据段" class="headerlink" title="数据段"></a>数据段</h4>
             </div>
             <hr/>
 
@@ -608,9 +660,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="进程管理">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="进程与线程">
                         
-                        <span class="card-title">进程管理</span>
+                        <span class="card-title">进程与线程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
