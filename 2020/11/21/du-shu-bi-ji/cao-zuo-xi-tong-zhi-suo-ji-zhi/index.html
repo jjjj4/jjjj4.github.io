@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第K大的数, Hexo">
+    <meta name="keywords" content="各种锁机制以及应用场景, Hexo">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第K大的数 | Hexo</title>
+    <title>各种锁机制以及应用场景 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第K大的数</h1>
+                    <h1 class="description center-align post-title">各种锁机制以及应用场景</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
-                                <span class="chip bg-color">快速排序</span>
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%94%81/">
+                                <span class="chip bg-color">锁</span>
                             </a>
                         
                     </div>
@@ -444,8 +448,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                数据结构与算法
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                操作系统
                             </a>
                         
                     </div>
@@ -457,7 +461,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-20
+                    2020-11-21
                 </div>
                 
 
@@ -473,45 +477,49 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><pre><code>给定一个整数数组a,同时给定它的大小n和要找的K(K在1到n之间)，请返回第K大的数，保证答案存在。
+                <h2 id="互斥锁-VS-自旋锁"><a href="#互斥锁-VS-自旋锁" class="headerlink" title="互斥锁 VS 自旋锁"></a>互斥锁 VS 自旋锁</h2><p><strong>互斥锁和自旋锁是两种最基本的锁，其他类型的锁都是基于他们实现的</strong></p>
+<h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><pre><code>互斥锁是一种「独占锁」，比如当线程 A 加锁成功后，此时互斥锁已经被线程 A 独占了，只要线程 A 没有释放手中的锁，线程 B 加锁就会失败，于是就会释放 CPU 让给其他线程，既然线程 B 释放掉了 CPU，自然线程 B 加锁的代码就会被阻塞。
 
-示例1
-输入：[1,3,5,2,2],5,3    (数组，数组长度，K)
-返回值：2</code></pre>
-<h3 id="算法思路：快速排序"><a href="#算法思路：快速排序" class="headerlink" title="算法思路：快速排序"></a>算法思路：快速排序</h3><pre><code>快速排序每次从数组中选取一个基数x，使得它右边的数 &gt;= x, 左边的数 &lt;= x,　
-因此若左边数组的长达 &gt;= k,　则在左边数组中找第k大的数，否则在右边数组找第 (k - 左边数组长度)大的数
+对于互斥锁加锁失败而阻塞的现象，是由操作系统内核实现的。当加锁失败时，内核会将线程置为「睡眠」状态，等到锁被释放后，内核会在合适的时机唤醒线程，当这个线程成功获取到锁后，于是就可以继续执行。
 
-时间复杂度:O(N)
-空间复杂度:O(1)</code></pre>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findKth</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span> K<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token function">getK</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> K<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+所以，互斥锁加锁失败时，会从用户态陷入到内核态，让内核帮我们切换线程。虽然简化了使用锁的难度，但是存在一定的性能开销成本。具体是，两次线程的上下文切换成本：
+    (1) 当加锁失败，内核会把线程的状态由 运行态 切换为 阻塞态，然后把CPU切换给其他线程
+    (2) 当锁被释放时，之前阻塞状态的线程会变成就绪状态，等待CPU的调度
 
-<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getK</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//　若数组只剩下一个数，那必然是第K大的数</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>l <span class="token operator">==</span> r<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> a<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+所以，如果你能确定被锁住的代码执行时间很短，就不应该用互斥锁，而应该选用自旋锁，否则使用互斥锁。</code></pre>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><pre><code>自旋锁是通过 CPU 提供的 CAS 函数（Compare And Swap），在「用户态」完成加锁和解锁操作，不会主动产生线程上下文切换，所以相比互斥锁来说，会快一些，开销也小一些。
 
-    <span class="token comment" spellcheck="true">//　快速排序，使得左边的都 >= 基值，右边的都 &lt;= 基值</span>
-    <span class="token keyword">int</span> i <span class="token operator">=</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> j <span class="token operator">=</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">do</span> i<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">do</span> j<span class="token operator">--</span><span class="token punctuation">;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> t <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+一般加锁的过程，包含两个步骤：
+    第一步，查看锁的状态，如果锁是空闲的，则执行第二步；
+    第二步，将锁设置为当前线程持有；
+CAS 函数就把这两个步骤合并成一条硬件级指令，形成原子指令，这样就保证了这两个步骤是不可分割的，要么一次性执行完两个步骤，要么两个步骤都不执行。
 
-    <span class="token keyword">int</span> length <span class="token operator">=</span> j <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">//　如果左数组的长度大于k,则在左数组找,否则在右数组找</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>length <span class="token operator">>=</span> k<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> <span class="token function">getK</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> l<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        <span class="token keyword">return</span> <span class="token function">getK</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> k <span class="token operator">-</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+使用自旋锁的时候，当发生多线程竞争锁的情况，加锁失败的线程会「忙等待」，直到它拿到锁。自旋锁是最比较简单的一种锁，一直自旋，利用 CPU 周期，直到锁可用。需要注意，在单核 CPU 上，需要抢占式的调度器（即不断通过时钟中断一个线程，运行其他线程）。否则，自旋锁在单 CPU 上无法使用，因为一个自旋的线程永远不会放弃 CPU。
+
+自旋锁开销少，在多核系统下一般不会主动产生线程切换，适合异步、协程等在用户态切换请求的编程方式，但如果被锁住的代码执行时间过长，自旋的线程会长时间占用 CPU 资源，所以自旋的时间和被锁住的代码执行的时间是成「正比」的关系，我们需要清楚的知道这一点。</code></pre>
+<h3 id="两者对比"><a href="#两者对比" class="headerlink" title="两者对比"></a>两者对比</h3><pre><code>互斥锁：加锁失败进入阻塞状态
+自旋锁：加锁失败进入忙等待</code></pre>
+<h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><pre><code>读写锁适用于能明确区分读操作和写操作的场景，在读多写少的场景下能发挥优势。
+
+工作原理：
+    当[写锁]没有被线程持有时，多个线程能够并发的持有[读锁]，因为「读锁」是用于读取共享资源的场景，所以多个线程同时持有读锁也不会破坏共享资源的数据。
+    一旦「写锁」被线程持有后，读线程的获取读锁的操作会被阻塞，而且其他写线程的获取写锁的操作也会被阻塞。
+
+所以说，写锁是独占锁，因为任何时刻只能有一个线程持有写锁，类似互斥锁和自旋锁，而读锁是共享锁，因为读锁可以被多个线程同时持有。
+
+读优先锁：当读线程 A 先持有了读锁，写线程 B 在获取写锁的时候，会被阻塞，并且在阻塞过程中，后续来的读线程 C 仍然可以成功获取读锁，最后直到读线程 A 和 C 释放读锁后，写线程 B 才可以成功获取写锁。
+
+写优先锁：当读线程 A 先持有了读锁，写线程 B 在获取写锁的时候，会被阻塞，并且在阻塞过程中，后续来的读线程 C 获取读锁时会失败，于是读线程 C 将被阻塞在获取读锁的操作，这样只要读线程 A 释放读锁后，写线程 B 就可以成功获取写锁。
+
+公平读写锁：用队列把获取锁的线程排队，不管是写线程还是读线程都按照先进先出的原则加锁即可，这样读线程仍然可以并发，也不会出现「饥饿」的现象。</code></pre>
+<h2 id="悲观锁-vs-乐观锁"><a href="#悲观锁-vs-乐观锁" class="headerlink" title="悲观锁 vs 乐观锁"></a>悲观锁 vs 乐观锁</h2><pre><code>悲观锁做事比较悲观，它认为多线程同时修改共享资源的概率比较高，于是很容易出现冲突，所以访问共享资源前，先要上锁。
+
+乐观锁做事比较乐观，它假定冲突的概率很低，它的工作方式是：先修改完共享资源，再验证这段时间内有没有发生冲突，如果没有其他线程在修改资源，那么操作完成，如果发现有其他线程已经修改过这个资源，就放弃本次操作。(最典型的场景：在线文档)
+
+如何验证冲突？
+    一般通过版本号来解决，线程在修改资源之前会得到一个原始版本号，在提交修改时会验证当前版本号与原始版本号是否一致。如果一致则提交修改并更新原始版本号，否则提交失败。
+
+乐观锁虽然去除了加锁解锁的操作，但是一旦发生冲突，重试的成本非常高，所以只有在冲突概率非常低，且加锁成本非常高的场景时，才考虑使用乐观锁。</code></pre>
 
             </div>
             <hr/>
@@ -537,7 +545,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://jjjj4.github.io/2020/11/20/0006-di-k-da-de-shu/">https://jjjj4.github.io/2020/11/20/0006-di-k-da-de-shu/</a>
+                    <a href="https://jjjj4.github.io/2020/11/21/du-shu-bi-ji/cao-zuo-xi-tong-zhi-suo-ji-zhi/">https://jjjj4.github.io/2020/11/21/du-shu-bi-ji/cao-zuo-xi-tong-zhi-suo-ji-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -575,8 +583,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
-                                    <span class="chip bg-color">快速排序</span>
+                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%94%81/">
+                                    <span class="chip bg-color">锁</span>
                                 </a>
                             
                         </div>
@@ -624,24 +636,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/20/0007-he-bing-you-xu-lian-biao/">
+                <a href="/2020/11/21/0012-you-xiao-de-gua-hao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="合并有序链表">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="有效的括号">
                         
-                        <span class="card-title">合并有序链表</span>
+                        <span class="card-title">有效的括号</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            LeetCode_21
+                            LeetCode_20
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-21
                         </span>
                         <span class="publish-author">
                             
@@ -658,8 +670,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%93%BE%E8%A1%A8/">
-                        <span class="chip bg-color">链表</span>
+                    <a href="/tags/%E6%A0%88/">
+                        <span class="chip bg-color">栈</span>
                     </a>
                     
                 </div>
@@ -673,19 +685,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/20/0005-er-cha-shu-bian-li/">
+                <a href="/2020/11/20/0011-liang-ge-zhan-shi-xian-dui-lie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="二叉树遍历">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="两个栈实现队列">
                         
-                        <span class="card-title">二叉树遍历</span>
+                        <span class="card-title">两个栈实现队列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            NewCoder_45
+                            NewCoder_76
                         
                     </div>
                     <div class="publish-info">
@@ -707,8 +719,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%A0%91/">
-                        <span class="chip bg-color">树</span>
+                    <a href="/tags/%E8%AE%BE%E8%AE%A1/">
+                        <span class="chip bg-color">设计</span>
                     </a>
                     
                 </div>
