@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>面试题/操作系统/进程管理</title>
+      <link href="2020/11/23/mian-shi-ti/cao-zuo-xi-tong/jin-cheng-guan-li/"/>
+      <url>2020/11/23/mian-shi-ti/cao-zuo-xi-tong/jin-cheng-guan-li/</url>
+      
+        <content type="html"><![CDATA[<hr><hr><p>[TOC]</p><p>title: 面试题之进程管理<br>data: 2020-11-23 11:00:00<br>categories: 操作系统<br>summary: 进程管理<br>tags:<br>    - 面试题<br>    - 进程管理</p><h3 id="进程和线程的区别和联系"><a href="#进程和线程的区别和联系" class="headerlink" title="进程和线程的区别和联系"></a>进程和线程的区别和联系</h3><pre><code></code></pre><h3 id="多进程和多线程的区别，分别适用哪些应用场景。"><a href="#多进程和多线程的区别，分别适用哪些应用场景。" class="headerlink" title="多进程和多线程的区别，分别适用哪些应用场景。"></a>多进程和多线程的区别，分别适用哪些应用场景。</h3><pre><code></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>面试题之内存管理</title>
+      <link href="2020/11/23/mian-shi-ti/cao-zuo-xi-tong/nei-cun-guan-li/"/>
+      <url>2020/11/23/mian-shi-ti/cao-zuo-xi-tong/nei-cun-guan-li/</url>
+      
+        <content type="html"><![CDATA[<p>[TOC]</p><h3 id="Linux的内存不足时会发生什么？"><a href="#Linux的内存不足时会发生什么？" class="headerlink" title="Linux的内存不足时会发生什么？"></a>Linux的内存不足时会发生什么？</h3><pre><code>当内存不够用时,swap分区将存储器中的数据块从DRAM移到swap的磁盘空间中,以释放更多的空间给当前进程使用.当再次需要那些数据时,就可以将swap磁盘中的数据重新移到内存,而将那些不用的数据块从内存移到swap中.</code></pre><h3 id="内存是怎么交换到外存的？"><a href="#内存是怎么交换到外存的？" class="headerlink" title="内存是怎么交换到外存的？"></a>内存是怎么交换到外存的？</h3><pre><code></code></pre><h3 id="各种页面置换算法以及优缺点"><a href="#各种页面置换算法以及优缺点" class="headerlink" title="各种页面置换算法以及优缺点"></a>各种页面置换算法以及优缺点</h3><pre><code></code></pre><h3 id="说说一个程序访问到物理内存的过程是怎么样的？"><a href="#说说一个程序访问到物理内存的过程是怎么样的？" class="headerlink" title="说说一个程序访问到物理内存的过程是怎么样的？"></a>说说一个程序访问到物理内存的过程是怎么样的？</h3><pre><code></code></pre><h3 id="说说操作系统的虚拟内存"><a href="#说说操作系统的虚拟内存" class="headerlink" title="说说操作系统的虚拟内存"></a>说说操作系统的虚拟内存</h3><pre><code>每个程序都拥有自己的地址空间，这个地址空间被分成大小相等的页，这些页被映射到物理内存；但不需要所有的页都在物理内存中，当程序引用到不在物理内存中的页时，由操作系统将缺失的部分装入物理内存。这样，对于程序来说，逻辑上似乎有很大的内存空间，只是实际上有一部分是存储在磁盘上，因此叫做虚拟内存。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 操作系统 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 面试题 </tag>
+            
+            <tag> 内存管理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>二叉树的锯齿形层序遍历</title>
       <link href="2020/11/22/suan-fa/0027-er-cha-shu-de-ju-chi-xing-ceng-xu-bian-li/"/>
       <url>2020/11/22/suan-fa/0027-er-cha-shu-de-ju-chi-xing-ceng-xu-bian-li/</url>
@@ -251,9 +291,9 @@
       
         <tags>
             
-            <tag> 哈希表 </tag>
-            
             <tag> 滑动窗口 </tag>
+            
+            <tag> 哈希表 </tag>
             
             <tag> 双指针 </tag>
             
