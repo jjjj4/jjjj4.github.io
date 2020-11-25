@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="读书笔记/Java并发/AQS剖析, Hexo">
+    <meta name="keywords" content="AQS剖析, Hexo">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>读书笔记/Java并发/AQS剖析 | Hexo</title>
+    <title>AQS剖析 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">读书笔记/Java并发/AQS剖析</h1>
+                    <h1 class="description center-align post-title">AQS剖析</h1>
                 </div>
             </div>
         </div>
@@ -430,12 +430,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AQS/">
+                                <span class="chip bg-color">AQS</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                                <span class="chip bg-color">并发</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                读书笔记
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -460,8 +477,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>[TOC]</p>
-<h3 id="AQS的作用"><a href="#AQS的作用" class="headerlink" title="AQS的作用"></a>AQS的作用</h3><pre><code>AQS 是一个用来构建锁和同步器的框架，为请求共享资源失败的线程而进入阻塞等待提供了维护以及被唤醒时锁分配的机制。</code></pre>
+                <h3 id="AQS的作用"><a href="#AQS的作用" class="headerlink" title="AQS的作用"></a>AQS的作用</h3><pre><code>AQS 是一个用来构建锁和同步器的框架，为请求共享资源失败的线程而进入阻塞等待提供了维护以及被唤醒时锁分配的机制。</code></pre>
 <h3 id="AQS的原理"><a href="#AQS的原理" class="headerlink" title="AQS的原理"></a>AQS的原理</h3><pre><code>核心思想：如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制。
 
 AQS内部维护了一个FIFO的双向链表，获取共享资源失败的线程将会被封装成该链表的一个节点加入到AQS的队列中，并且该线程进入阻塞状态。当获取锁的线程释放锁之后，会在队列中唤醒一个阻塞的节点。</code></pre>
@@ -775,7 +791,15 @@ Sync有两个实现类，分别为NonfairSync(非公平锁)和FairSync(公平锁
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/AQS/">
+                                    <span class="chip bg-color">AQS</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                                    <span class="chip bg-color">并发</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -825,15 +849,15 @@ Sync有两个实现类，分别为NonfairSync(非公平锁)和FairSync(公平锁
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="读书笔记/Java并发/volatile关键字解析">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="volatile关键字">
                         
-                        <span class="card-title">读书笔记/Java并发/volatile关键字解析</span>
+                        <span class="card-title">volatile关键字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Java并发
                         
                     </div>
                     <div class="publish-info">
@@ -842,11 +866,27 @@ Sync有两个实现类，分别为NonfairSync(非公平锁)和FairSync(公平锁
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            JJJJ4
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    读书笔记
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">并发</span>
+                    </a>
+                    
+                    <a href="/tags/volatile/">
+                        <span class="chip bg-color">volatile</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -862,15 +902,15 @@ Sync有两个实现类，分别为NonfairSync(非公平锁)和FairSync(公平锁
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="读书笔记/Java并发/线程池">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="线程池">
                         
-                        <span class="card-title">读书笔记/Java并发/线程池</span>
+                        <span class="card-title">线程池</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Java并发
                         
                     </div>
                     <div class="publish-info">
@@ -879,11 +919,27 @@ Sync有两个实现类，分别为NonfairSync(非公平锁)和FairSync(公平锁
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            JJJJ4
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    读书笔记
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">并发</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                        <span class="chip bg-color">线程池</span>
+                    </a>
+                    
                 </div>
                 
             </div>

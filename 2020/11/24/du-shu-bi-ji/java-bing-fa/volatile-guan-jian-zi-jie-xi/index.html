@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="读书笔记/Java并发/volatile关键字解析, Hexo">
+    <meta name="keywords" content="volatile关键字, Hexo">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>读书笔记/Java并发/volatile关键字解析 | Hexo</title>
+    <title>volatile关键字 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">读书笔记/Java并发/volatile关键字解析</h1>
+                    <h1 class="description center-align post-title">volatile关键字</h1>
                 </div>
             </div>
         </div>
@@ -430,12 +430,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                                <span class="chip bg-color">并发</span>
+                            </a>
+                        
+                            <a href="/tags/volatile/">
+                                <span class="chip bg-color">volatile</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                读书笔记
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -460,9 +477,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>[TOC]</p>
-<p>##　缓存一致性</p>
-<pre><code>现代CPU都是多核处理器,每个核心有自己的缓存数据，当多个核心读取同一个变量值时，由于每个核心读取的是自己那一部分的缓存，每个核心的缓存数据不一致将会导致一系列问题。
+                <h2 id="缓存一致性"><a href="#缓存一致性" class="headerlink" title="缓存一致性"></a>缓存一致性</h2><pre><code>现代CPU都是多核处理器,每个核心有自己的缓存数据，当多个核心读取同一个变量值时，由于每个核心读取的是自己那一部分的缓存，每个核心的缓存数据不一致将会导致一系列问题。
 
 一个缓存区可以分为N个缓存行(Cache line)，缓存行是和内存进行数据交换的最小单位。
 每个缓存行包含三个部分，其中valid用于标识该数据的有效性。如果有效位为false，CPU核心就从内存中读取，并将对应旧的缓存行数据覆盖，否则使用旧缓存数据；tag用于指示数据对应的内存地址；block则用以存储数据。
@@ -589,7 +604,15 @@ StoreLoad屏障：在第二大段读数据指令被访问前，保证第一大�
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                                    <span class="chip bg-color">并发</span>
+                                </a>
+                            
+                                <a href="/tags/volatile/">
+                                    <span class="chip bg-color">volatile</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -692,15 +715,15 @@ StoreLoad屏障：在第二大段读数据指令被访问前，保证第一大�
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="读书笔记/Java并发/AQS剖析">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="AQS剖析">
                         
-                        <span class="card-title">读书笔记/Java并发/AQS剖析</span>
+                        <span class="card-title">AQS剖析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Java并发
                         
                     </div>
                     <div class="publish-info">
@@ -709,11 +732,27 @@ StoreLoad屏障：在第二大段读数据指令被访问前，保证第一大�
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            JJJJ4
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    读书笔记
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AQS/">
+                        <span class="chip bg-color">AQS</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">并发</span>
+                    </a>
+                    
                 </div>
                 
             </div>
